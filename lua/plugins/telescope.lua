@@ -87,12 +87,12 @@ return {
       { '<leader>uC', '<cmd>Telescope colorscheme<cr>', desc = 'Colorscheme with Preview' },
     },
     config = function()
-      local actions = require("telescope.actions")
+      local actions = require('telescope.actions')
       local telescope = require('telescope')
       telescope.setup({
         mappings = {
           n = {
-            ["q"] = actions.close,
+            ['q'] = actions.close,
           },
         },
         pickers = {
