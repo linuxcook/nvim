@@ -50,6 +50,7 @@ return {
       -- git
       { '<leader>gc', '<cmd>Telescope git_commits<CR>',               desc = 'Commits' },
       { '<leader>gs', '<cmd>Telescope git_status<CR>',                desc = 'Status' },
+
       -- search
       { '<leader>s"', '<cmd>Telescope registers<cr>',                 desc = 'Registers' },
       { '<leader>sa', '<cmd>Telescope autocommands<cr>',              desc = 'Auto Commands' },
@@ -90,16 +91,14 @@ return {
       local actions = require('telescope.actions')
       local telescope = require('telescope')
       telescope.setup({
-        mappings = {
-          n = {
-            ['q'] = actions.close,
+        defaults = require('telescope.themes').get_ivy({
+          mappings = {
+            n = {
+              ['q'] = actions.close,
+            },
           },
-        },
-        pickers = {
-          find_files = {
-            theme = 'ivy',
-          },
-        },
+          theme = 'ivy',
+        }),
         extensions = {
           fzf = {},
         },
