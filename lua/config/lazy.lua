@@ -24,7 +24,8 @@ require('config.autocmds')
 require('lazy').setup({
   spec = {
     -- import your plugins
-    { import = 'langs' },
     { import = 'plugins' },
+    -- import language specific plugins
+    { import = 'langs' },
   },
 })

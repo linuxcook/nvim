@@ -26,18 +26,47 @@ return {
               callback = vim.lsp.codelens.refresh,
             })
           end
+
+          if client.supports_method('textDocument/documentHighlight') then
+            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+              buffer = args.buf,
+              callback = function()
+                vim.lsp.buf.document_highlight()
+              end,
+            })
+
+            vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
+              buffer = args.buf,
+              callback = function()
+                vim.lsp.buf.clear_references()
+              end,
+            })
+          end
         end,
       })
 
-      local capabilities = nil
-      if pcall(require, 'blink.cmp') then
-        capabilities = require('blink.cmp').get_lsp_capabilities()
-      end
+      local has_blink, blink = pcall(require, 'blink.cmp')
+      local capabilities = vim.tbl_deep_extend(
+        'force',
+        {},
+        vim.lsp.protocol.make_client_capabilities() or {},
+        has_blink and blink.get_lsp_capabilities() or {},
+        opts.capabilities or {}
+      )
 
       local servers = opts.servers or {}
       for server, config in pairs(servers) do
-        config.capabilities = capabilities
-        lspconfig[server].setup(config)
+        local server_opts = vim.tbl_deep_extend('force', { capabilities = vim.deepcopy(capabilities) }, config or {})
+        if server_opts.enabled == false then
+          return
+        end
+
+        if opts.setup[server] then
+          if opts.setup[server](server, server_opts) then
+            return
+          end
+        end
+        lspconfig[server].setup(server_opts)
       end
 
       require('plugins.lsp.keymaps')
