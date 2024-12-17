@@ -4,6 +4,7 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
+        cmake = { 'cmakelang' },
         cpp = { 'clang-format' },
       },
     },
@@ -12,7 +13,7 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    opts = { ensure_installed = { 'cpp' } },
+    opts = { ensure_installed = { 'cpp', 'cmake' } },
   },
 
   -- LSP
@@ -21,6 +22,7 @@ return {
     opts = {
       servers = {
         clangd = {},
+        neocmake = {},
       },
     },
   },

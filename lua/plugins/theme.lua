@@ -12,12 +12,15 @@ return {
 
   -- main theme
   {
-    'navarasu/onedark.nvim',
-    name = 'onedark',
-    lazy = false,
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    priority = 1000,
     config = function(_, opts)
-      require('onedark').setup(opts)
-      require('onedark').load()
+      require('catppuccin').setup(opts)
+      vim.cmd.colorscheme('catppuccin')
     end,
   },
+
+  { 'echasnovski/mini.cursorword', version = false, opts = {} },
+  { 'echasnovski/mini.pairs', version = false, opts = {} },
 }

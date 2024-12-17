@@ -9,7 +9,7 @@ return {
     opts = {
       ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline' },
       sync_install = false,
-      auto_install = true,
+      auto_install = false,
       ignore_install = {},
       ---@type TSModule
       ---@diagnostic disable-next-line: missing-fields
@@ -37,6 +37,9 @@ return {
         filetype = 'jinja',
       }
 
+      if type(opts.ensure_installed) == 'table' then
+        opts.ensure_installed = Util.dedup(opts.ensure_installed)
+      end
       require('nvim-treesitter.configs').setup(opts)
     end,
   },

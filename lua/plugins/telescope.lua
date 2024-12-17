@@ -17,7 +17,7 @@ return {
         '<leader>/',
         function()
           require('telescope.builtin').live_grep({
-            cwd = require('util.root').get(),
+            cwd = Util.root(),
           })
         end,
         'Grep (Root Dir)',
@@ -31,7 +31,7 @@ return {
         '<leader><space>',
         function()
           require('telescope.builtin').find_files({
-            cwd = require('util.root').get(),
+            cwd = Util.root(),
           })
         end,
         desc = 'Find Files (Root Dir)',
@@ -56,7 +56,7 @@ return {
         '<leader>ff',
         function()
           require('telescope.builtin').find_files({
-            cwd = require('util.root').get(),
+            cwd = Util.root(),
           })
         end,
         desc = 'Find Files (Root Dir)',
@@ -89,7 +89,7 @@ return {
         '<leader>sg',
         function()
           require('telescope.builtin').live_grep({
-            cwd = require('util.root').get(),
+            cwd = Util.root(),
           })
         end,
         'Grep (Root Dir)',
@@ -108,7 +108,7 @@ return {
       {
         '<leader>sw',
         function()
-          require('telescope.builtin').grep_string({ cwd = require('util.root').get(), word_match = '-w' })
+          require('telescope.builtin').grep_string({ cwd = Util.root(), word_match = '-w' })
         end,
         desc = 'Word (Root Dir)',
       },
@@ -122,7 +122,7 @@ return {
       {
         '<leader>sw',
         function()
-          require('telescope.builtin').grep_string({ cwd = require('util.root').get() })
+          require('telescope.builtin').grep_string({ cwd = Util.root() })
         end,
         mode = 'v',
         desc = 'Selection (Root Dir)',
@@ -130,7 +130,7 @@ return {
       {
         '<leader>sW',
         function()
-          require('telescope.builtin').grep_string({ cwd = require('util.root').get() })
+          require('telescope.builtin').grep_string({ cwd = Util.root() })
         end,
         mode = 'v',
         desc = 'Selection (cwd)',
@@ -138,7 +138,7 @@ return {
       {
         '<leader>uC',
         function()
-          require('telescope.builtin').colorscheme({ cwd = require('util.root').get() })
+          require('telescope.builtin').colorscheme({ cwd = Util.root() })
         end,
         desc = 'Colorscheme with Preview',
       },

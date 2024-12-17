@@ -26,22 +26,6 @@ return {
               callback = vim.lsp.codelens.refresh,
             })
           end
-
-          if client.supports_method('textDocument/documentHighlight') then
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = args.buf,
-              callback = function()
-                vim.lsp.buf.document_highlight()
-              end,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-              buffer = args.buf,
-              callback = function()
-                vim.lsp.buf.clear_references()
-              end,
-            })
-          end
         end,
       })
 
