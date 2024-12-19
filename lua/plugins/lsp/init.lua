@@ -7,44 +7,6 @@ return {
     },
     config = function(_, opts)
       local lspconfig = require('lspconfig')
-      vim.api.nvim_create_autocmd('LspAttach', {
-        ---@param args vim.api.keyset.create_autocmd.callback_args
-        callback = function(args)
-          ---@type vim.lsp.Client?
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
-          if not client then
-            return
-          end
-
-          if client.supports_method('textDocument/inlayHint') then
-            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
-          end
-
-          if client.supports_method('textDocument/codeLens') then
-            vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
-              buffer = args.buf,
-              callback = vim.lsp.codelens.refresh,
-            })
-          end
-
-          if client.supports_method('textDocument/documentHighlight') then
-            vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
-              buffer = args.buf,
-              callback = function()
-                vim.lsp.buf.document_highlight()
-              end,
-            })
-
-            vim.api.nvim_create_autocmd({ 'CursorMoved' }, {
-              buffer = args.buf,
-              callback = function()
-                vim.lsp.buf.clear_references()
-              end,
-            })
-          end
-        end,
-      })
-
       local has_blink, blink = pcall(require, 'blink.cmp')
       local capabilities = vim.tbl_deep_extend(
         'force',
@@ -70,6 +32,28 @@ return {
       end
 
       require('plugins.lsp.keymaps')
+
+      vim.api.nvim_create_autocmd('LspAttach', {
+        ---@param args vim.api.keyset.create_autocmd.callback_args
+        callback = function(args)
+          ---@type vim.lsp.Client?
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          if not client then
+            return
+          end
+
+          if client.supports_method('textDocument/inlayHint') then
+            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+          end
+
+          if client.supports_method('textDocument/codeLens') then
+            vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
+              buffer = args.buf,
+              callback = vim.lsp.codelens.refresh,
+            })
+          end
+        end,
+      })
     end,
   },
 }

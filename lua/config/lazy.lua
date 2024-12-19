@@ -20,6 +20,8 @@ require('config.options')
 require('config.keymaps')
 require('config.autocmds')
 
+_G.Util = require('util')
+
 -- Setup lazy.nvim
 require('lazy').setup({
   spec = {
@@ -28,4 +30,5 @@ require('lazy').setup({
     -- import language specific plugins
     { import = 'langs' },
   },
+  install = { colorscheme = { 'catppuccin' } },
 })

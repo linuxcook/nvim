@@ -24,6 +24,7 @@ function M.detectors.cwd()
   return { vim.uv.cwd() }
 end
 
+---@return string[]
 function M.detectors.lsp(buf)
   local bufpath = M.bufpath(buf)
   if not bufpath then
@@ -49,6 +50,7 @@ end
 
 ---@param buf integer
 ---@param patterns string[] | string
+---@return string[]
 function M.detectors.pattern(buf, patterns)
   patterns = type(patterns) == 'string' and { patterns } or patterns
   local path = M.bufpath(buf) or vim.uv.cwd()
@@ -155,7 +157,7 @@ function M.get(opts)
   if opts and opts.normalize then
     return ret
   end
-  return vim.uv.os_uname().sysname:find('Windows') ~= nil and ret:gsub('/', '\\') or ret
+  return Util.is_win() and ret:gsub('/', '\\') or ret
 end
 
 function M.git()
