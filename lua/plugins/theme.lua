@@ -1,4 +1,20 @@
 return {
+  {
+    'nvim-tree/nvim-web-devicons',
+    opts = {
+      override = {
+        jinja = {
+          icon = '',
+          color = '#B41717',
+          name = 'Jinja',
+        },
+      },
+    },
+    config = function(_, opts)
+      require('nvim-web-devicons').setup(opts)
+    end,
+  },
+
   -- recolor devicons to match theme
   {
     'rachartier/tiny-devicons-auto-colors.nvim',
