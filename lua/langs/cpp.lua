@@ -1,4 +1,10 @@
 return {
+  -- Packages
+  {
+    'williamboman/mason.nvim',
+    opts = { ensure_installed = { 'clang-format', 'clangd' } },
+  },
+
   -- Formatting
   {
     'stevearc/conform.nvim',

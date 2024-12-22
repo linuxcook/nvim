@@ -1,4 +1,10 @@
 return {
+  -- Packages
+  {
+    'williamboman/mason.nvim',
+    opts = { ensure_installed = { 'lua-language-server', 'stylua' } },
+  },
+
   -- Formatting
   {
     'stevearc/conform.nvim',

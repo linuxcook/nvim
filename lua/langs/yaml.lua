@@ -1,4 +1,10 @@
 return {
+  -- Packages
+  {
+    'williamboman/mason.nvim',
+    opts = { ensure_installed = { 'yamlfmt', 'yaml-language-server' } },
+  },
+
   -- Formatting
   {
     'stevearc/conform.nvim',
