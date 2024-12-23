@@ -39,3 +39,6 @@ opt.virtualedit = 'block' -- Allow cursor to move where there is no text in visu
 opt.winminwidth = 5
 opt.wrap = true -- Line wrapping
 opt.smoothscroll = true
+
+opt.foldmethod = 'expr'
+opt.foldexpr = 'nvim_treesitter#foldexpr()'

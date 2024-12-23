@@ -19,7 +19,7 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    opts = { ensure_installed = { 'cpp', 'cmake' } },
+    opts = { ensure_installed = { 'cpp', 'cmake', 'doxygen', 'comment' } },
   },
 
   -- LSP

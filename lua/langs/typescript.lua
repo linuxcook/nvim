@@ -19,7 +19,7 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    opts = { ensure_installed = { 'javascript', 'typescript' } },
+    opts = { ensure_installed = { 'javascript', 'jsdoc', 'regex', 'typescript' } },
   },
 
   -- LSP
