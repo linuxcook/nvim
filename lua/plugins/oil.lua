@@ -1,10 +1,7 @@
 return {
   'stevearc/oil.nvim',
-  lazy = true,
-  keys = {
-    { '-', '<cmd>Oil<cr>', desc = 'Open parent directory' },
-  },
   config = function()
+    vim.keymap.set('n', '-', '<CMD>Oil<CR>', { desc = 'Open parent directory' })
     require('oil').setup()
   end,
 }

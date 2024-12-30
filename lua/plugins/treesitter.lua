@@ -8,15 +8,11 @@ return {
     ---@diagnostic disable-next-line: missing-fields
     opts = {
       ensure_installed = { 'c', 'lua', 'vim', 'vimdoc', 'query', 'markdown', 'markdown_inline' },
-      sync_install = false,
-      auto_install = false,
-      ignore_install = {},
       ---@type TSModule
       ---@diagnostic disable-next-line: missing-fields
       highlight = {
         enable = true,
         ---@param buf integer
-        ---@return boolean?
         disable = function(_, buf)
           local max_filesize = 100 * 1024 -- 100 KB
           local ok, stats = pcall(vim.uv.fs_stat, vim.api.nvim_buf_get_name(buf))
@@ -24,6 +20,16 @@ return {
             return true
           end
         end,
+      },
+      indent = { enable = true },
+      incremental_selection = {
+        enable = true,
+        keymaps = {
+          init_selection = '<c-space>',
+          node_incremental = '<c-space>',
+          scope_incremental = false,
+          node_decremental = '<bs>',
+        },
       },
     },
     config = function(_, opts)

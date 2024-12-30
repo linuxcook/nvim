@@ -27,9 +27,9 @@ return {
       },
     },
   },
+  { 'folke/lazydev.nvim', ft = 'lua' },
   {
     'neovim/nvim-lspconfig',
-    dependencies = { 'folke/lazydev.nvim' },
     opts = {
       servers = {
         lua_ls = {
