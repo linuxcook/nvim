@@ -2,10 +2,7 @@
 
 return {
   'saghen/blink.cmp',
-  lazy = false,
-
-  -- Build latest version
-  build = 'cargo build --release',
+  version = '*',
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {

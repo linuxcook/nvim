@@ -1,5 +1,5 @@
 {
-  "blink.cmp": { "branch": "main", "commit": "c8e86a3ed1eff07e2c1108779a720d3b4c6b86a7" },
+  "blink.cmp": { "branch": "main", "commit": "5f442681df24fe705d1ee7ce5b4d435aa4b4dee4" },
   "catppuccin": { "branch": "main", "commit": "faf15ab0201b564b6368ffa47b56feefc92ce3f4" },
   "conform.nvim": { "branch": "master", "commit": "f4e8837878fc5712d053ba3091a73d27d96a09e2" },
   "diffview.nvim": { "branch": "main", "commit": "4516612fe98ff56ae0415a259ff6361a89419b0a" },
