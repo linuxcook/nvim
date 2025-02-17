@@ -5,6 +5,12 @@ return {
     opts = { ensure_installed = { 'clang-format', 'clangd' } },
   },
 
+  -- Linting
+  {
+    'mfussenegger/nvim-lint',
+    opts = { linters_by_ft = { cpp = { 'cpplint' } } },
+  },
+
   -- Formatting
   {
     'stevearc/conform.nvim',

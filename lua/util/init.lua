@@ -9,6 +9,11 @@ setmetatable(M, {
   end,
 })
 
+function M.lazy_file()
+  local Event = require('lazy.core.handler.event')
+  Event.mappings.LazyFile = { id = 'LazyFile', event = { 'BufReadPost', 'BufNewFile', 'BufWritePre' } }
+end
+
 function M.is_win()
   return vim.uv.os_uname().sysname:find('Windows') ~= nil
 end

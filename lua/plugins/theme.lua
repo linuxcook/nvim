@@ -15,6 +15,11 @@ return {
     end,
   },
 
+  {
+    'christoomey/vim-tmux-navigator',
+    lazy = false,
+  },
+
   -- recolor devicons to match theme
   {
     'rachartier/tiny-devicons-auto-colors.nvim',

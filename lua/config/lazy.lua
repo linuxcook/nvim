@@ -21,6 +21,7 @@ require('config.keymaps')
 require('config.autocmds')
 
 _G.Util = require('util')
+Util.lazy_file()
 
 -- Setup lazy.nvim
 require('lazy').setup({
