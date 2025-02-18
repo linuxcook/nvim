@@ -1,12 +1,17 @@
 return {
   {
     'neovim/nvim-lspconfig',
+    event = 'LazyFile',
     dependencies = {
       'saghen/blink.cmp',
       'williamboman/mason.nvim',
     },
+    opts = {
+      on_attach = {},
+      setup = {},
+    },
     config = function(_, opts)
-      local lspconfig = require('lspconfig')
+      local servers = opts.servers or {}
       local has_blink, blink = pcall(require, 'blink.cmp')
       local capabilities = vim.tbl_deep_extend(
         'force',
@@ -16,7 +21,6 @@ return {
         opts.capabilities or {}
       )
 
-      local servers = opts.servers or {}
       for server, config in pairs(servers) do
         local server_opts = vim.tbl_deep_extend('force', { capabilities = vim.deepcopy(capabilities) }, config or {})
         if server_opts.enabled == false then
@@ -28,27 +32,32 @@ return {
             return
           end
         end
-        lspconfig[server].setup(server_opts)
+        require('lspconfig')[server].setup(server_opts)
       end
-
-      require('plugins.lsp.keymaps')
 
       vim.api.nvim_create_autocmd('LspAttach', {
         ---@param args vim.api.keyset.create_autocmd.callback_args
         callback = function(args)
-          ---@type vim.lsp.Client?
-          local client = vim.lsp.get_client_by_id(args.data.client_id)
+          local buffer = args.buf ---@type number
+          local client = vim.lsp.get_client_by_id(args.data.client_id) ---@type vim.lsp.Client?
           if not client then
             return
           end
 
+          if opts.on_attach[client.name] then
+            opts.on_attach[client.name](client, buffer)
+          end
+
+          require('plugins.lsp.keymaps').on_attach(client, buffer)
+
           if client.supports_method('textDocument/inlayHint') then
-            vim.lsp.inlay_hint.enable(true, { bufnr = args.buf })
+            vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
           end
 
           if client.supports_method('textDocument/codeLens') then
+            vim.lsp.codelens.refresh()
             vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
-              buffer = args.buf,
+              buffer = buffer,
               callback = vim.lsp.codelens.refresh,
             })
           end

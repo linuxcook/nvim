@@ -23,20 +23,29 @@ return {
               logLevel = 'error',
             },
           },
+          keys = {
+            {
+              '<leader>co',
+              function()
+                vim.lsp.buf.code_action({
+                  apply = true,
+                  context = {
+                    only = { 'source.organizeImports' },
+                    diagnostics = {},
+                  },
+                })
+              end,
+              desc = 'Organize Imports',
+            },
+          },
         },
         basedpyright = {},
       },
-      setup = {
-        ruff = function()
-          vim.api.nvim_create_autocmd('LspAttach', {
-            ---@param args vim.api.keyset.create_autocmd.callback_args
-            callback = function(args)
-              local client = vim.lsp.get_client_by_id(args.data.client_id) ---@type vim.lsp.Client?
-              if client and client.name == 'ruff' then
-                client.server_capabilities.hoverProvider = false
-              end
-            end,
-          })
+      on_attach = {
+        ---@param client vim.lsp.Client
+        ---@param buffer number
+        ruff = function(client, buffer)
+          client.server_capabilities.hoverProvider = false
         end,
       },
     },
@@ -47,7 +56,7 @@ return {
     'linux-cultist/venv-selector.nvim',
     dependencies = {
       'neovim/nvim-lspconfig',
-      { 'nvim-telescope/telescope.nvim', branch = '0.1.x', dependencies = { 'nvim-lua/plenary.nvim' } },
+      'nvim-telescope/telescope.nvim',
     },
     lazy = false,
     branch = 'regexp', -- This is the regexp branch, use this for the new version
