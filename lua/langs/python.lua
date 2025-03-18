@@ -50,24 +50,4 @@ return {
       },
     },
   },
-
-  -- venv
-  {
-    'linux-cultist/venv-selector.nvim',
-    dependencies = {
-      'neovim/nvim-lspconfig',
-      'nvim-telescope/telescope.nvim',
-    },
-    lazy = false,
-    branch = 'regexp', -- This is the regexp branch, use this for the new version
-    opts = {
-      name = '.venv',
-    },
-    config = function(_, opts)
-      require('venv-selector').setup(opts)
-    end,
-    keys = {
-      { 'cv', '<cmd>VenvSelect<cr>' },
-    },
-  },
 }

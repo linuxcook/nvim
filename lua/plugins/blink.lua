@@ -3,6 +3,8 @@
 return {
   'saghen/blink.cmp',
   version = '*',
+  build = 'cargo build --release',
+
   ---@module 'blink.cmp'
   ---@type blink.cmp.Config
   opts = {
@@ -17,7 +19,6 @@ return {
     },
     sources = {
       default = { 'lsp', 'path', 'snippets', 'buffer' },
-      cmdline = {},
     },
   },
 }

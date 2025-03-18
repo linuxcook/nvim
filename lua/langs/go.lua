@@ -1,10 +1,4 @@
 return {
-  -- Packages
-  {
-    'williamboman/mason.nvim',
-    opts = { ensure_installed = { 'gopls' } },
-  },
-
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
