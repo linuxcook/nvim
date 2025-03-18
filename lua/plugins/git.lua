@@ -1,17 +1,4 @@
 return {
-  -- Client
-  {
-    'NeogitOrg/neogit',
-    dependencies = {
-      'nvim-lua/plenary.nvim',
-      'nvim-telescope/telescope.nvim',
-      'sindrets/diffview.nvim',
-    },
-    keys = {
-      { '<leader>gg', '<cmd>Neogit kind=replace<cr>', desc = 'Open Neogit' },
-    },
-  },
-
   -- Editor
   {
     'lewis6991/gitsigns.nvim',

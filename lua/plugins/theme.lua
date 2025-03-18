@@ -42,6 +42,15 @@ return {
     end,
   },
 
-  { 'echasnovski/mini.cursorword', version = false, opts = {} },
+  {
+    'echasnovski/mini.cursorword',
+    version = false,
+    opts = {},
+    config = function()
+      require('mini.cursorword').setup()
+      vim.api.nvim_set_hl(0, 'MiniCursorword', { link = 'DiffText' })
+      vim.api.nvim_set_hl(0, 'MiniCursorwordCurrent', { link = 'DiffText' })
+    end,
+  },
   { 'echasnovski/mini.pairs', version = false, opts = {} },
 }
