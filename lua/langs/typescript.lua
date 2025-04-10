@@ -1,10 +1,4 @@
 return {
-  -- Packages
-  {
-    'williamboman/mason.nvim',
-    opts = { ensure_installed = { 'prettierd', 'typescript-language-server' } },
-  },
-
   -- Formatting
   {
     'stevearc/conform.nvim',

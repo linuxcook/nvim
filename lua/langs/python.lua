@@ -1,10 +1,4 @@
 return {
-  -- Packages
-  {
-    'williamboman/mason.nvim',
-    opts = { ensure_installed = { 'basedpyright', 'ruff' } },
-  },
-
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',

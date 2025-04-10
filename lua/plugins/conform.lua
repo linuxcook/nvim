@@ -2,21 +2,10 @@ return {
   'stevearc/conform.nvim',
   lazy = false,
   keys = {
-    {
-      '<leader>cf',
-      function()
-        require('conform').format()
-      end,
-      desc = 'Format',
-      mode = { 'n', 'v' },
-    },
-    {
-      '<leader>uf',
-      function()
-        vim.g.disable_autoformat = not vim.g.disable_autoformat
-      end,
-      desc = 'Toggle format on save',
-    },
+    -- stylua: ignore start
+    { '<leader>cf', function() require('conform').format() end, desc = 'Format', mode = { 'n', 'v' }, },
+    { '<leader>uf', function() vim.g.disable_autoformat = not vim.g.disable_autoformat end, desc = 'Toggle format on save', },
+    -- stylua: ignore end
   },
   init = function()
     vim.o.formatexpr = "v:lua.require'conform'.formatexpr()"
