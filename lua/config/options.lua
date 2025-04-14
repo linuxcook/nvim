@@ -7,7 +7,7 @@ local opt = vim.opt
 opt.autowrite = true -- Enable auto write
 -- only set clipboard if not in ssh, to make sure the OSC 52
 -- integration works automatically.
-opt.clipboard = vim.env.SSH_TTY and '' or 'unnamedplus'
+opt.clipboard = 'unnamedplus'
 opt.completeopt = 'menu,menuone,noselect'
 opt.conceallevel = 2 -- Hide * markup for bold and italic
 opt.confirm = true -- Confirm to save changes before exiting modified buffer
@@ -64,3 +64,8 @@ opt.smoothscroll = true
 opt.foldexpr = 'nvim_treesitter#foldexpr()'
 opt.foldmethod = 'expr'
 opt.foldtext = ''
+
+vim.diagnostic.config({
+  virtual_lines = false,
+  virtual_text = true,
+})
