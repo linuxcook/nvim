@@ -1,4 +1,4 @@
----@class util.root
+---@class utils.root
 ---@overload fun(): string
 local M = setmetatable({}, {
   __call = function(m)
@@ -157,7 +157,7 @@ function M.get(opts)
   if opts and opts.normalize then
     return ret
   end
-  return Util.is_win() and ret:gsub('/', '\\') or ret
+  return Utils.is_win() and ret:gsub('/', '\\') or ret
 end
 
 function M.git()

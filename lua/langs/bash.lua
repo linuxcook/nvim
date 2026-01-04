@@ -4,7 +4,7 @@ return {
     'stevearc/conform.nvim',
     opts = {
       formatters_by_ft = {
-        cpp = { 'clang-format' },
+        bash = { 'shfmt' },
       },
     },
   },
@@ -12,7 +12,7 @@ return {
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    opts = { ensure_installed = { 'cpp', 'cmake', 'doxygen', 'comment' } },
+    opts = { ensure_installed = { 'bash' } },
   },
 
   -- LSP
@@ -20,7 +20,7 @@ return {
     'neovim/nvim-lspconfig',
     opts = {
       servers = {
-        clangd = {},
+        bashls = {},
       },
     },
   },

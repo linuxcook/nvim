@@ -44,9 +44,9 @@ return {
   -- stylua: ignore start
   keys = {
     -- Top Pickers & Explorer
-    { '<leader><space>', function () require('fzf-lua').files({ cwd = Util.root() }) end, desc = 'Find Files (Project)' },
+    { '<leader><space>', function () require('fzf-lua').files({ cwd = Utils.root() }) end, desc = 'Find Files (Project)' },
     { '<leader>,', function() require('fzf-lua').buffers() end, desc = 'Buffers' },
-    { '<leader>/', function() require('fzf-lua').live_grep({ cwd = Util.root() }) end, desc = 'Grep' },
+    { '<leader>/', function() require('fzf-lua').live_grep({ cwd = Utils.root() }) end, desc = 'Grep' },
     { '<leader>:', function() require('fzf-lua').command_history() end, desc = 'Command History' },
     -- find
     { '<leader>fb', function() require('fzf-lua').buffers() end, desc = 'Buffers' },

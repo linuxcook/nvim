@@ -1,10 +1,10 @@
----@class util
----@field root util.root
+---@class utils
+---@field root utils.root
 local M = {}
 
 setmetatable(M, {
   __index = function(t, k)
-    t[k] = require('util.' .. k)
+    t[k] = require('utils.' .. k)
     return t[k]
   end,
 })
@@ -56,6 +56,10 @@ function M.dedup(list)
     end
   end
   return ret
+end
+
+function M.setup()
+  M.lazy_file()
 end
 
 return M

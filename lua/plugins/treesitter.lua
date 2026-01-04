@@ -33,20 +33,8 @@ return {
       },
     },
     config = function(_, opts)
-      local parser_config = require('nvim-treesitter.parsers').get_parser_configs()
-      parser_config['jinja2'] = {
-        install_info = {
-          url = 'https://github.com/linuxcook/tree-sitter-jinja2',
-          files = { 'src/parser.c', 'src/scanner.c' },
-          branch = 'main',
-          generate_requires_npm = false,
-          requires_generate_from_grammar = false,
-        },
-        filetype = 'jinja',
-      }
-
       if type(opts.ensure_installed) == 'table' then
-        opts.ensure_installed = Util.dedup(opts.ensure_installed)
+        opts.ensure_installed = Utils.dedup(opts.ensure_installed)
       end
       require('nvim-treesitter.configs').setup(opts)
     end,

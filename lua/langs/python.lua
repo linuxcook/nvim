@@ -33,12 +33,11 @@ return {
             },
           },
         },
-        basedpyright = {},
+        ty = {},
       },
       on_attach = {
         ---@param client vim.lsp.Client
-        ---@param buffer number
-        ruff = function(client, buffer)
+        ruff = function(client, _)
           client.server_capabilities.hoverProvider = false
         end,
       },

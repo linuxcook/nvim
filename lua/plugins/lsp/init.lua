@@ -8,38 +8,68 @@ return {
     },
     opts = {
       on_attach = {},
-      setup = {},
+      servers = {
+        ['*'] = {
+          capabilities = {
+            workspace = {
+              fileOperations = {
+                didRename = true,
+                willRename = true,
+              },
+            },
+          },
+          -- stylua: ignore
+          keys = {
+            { "<leader>cl", '<cmd>LspInfo<cr>', desc = "Lsp Info" },
+            { "gd", vim.lsp.buf.definition, desc = "Goto Definition", has = "definition" },
+            { "gr", vim.lsp.buf.references, desc = "References", nowait = true },
+            { "gI", vim.lsp.buf.implementation, desc = "Goto Implementation" },
+            { "gy", vim.lsp.buf.type_definition, desc = "Goto T[y]pe Definition" },
+            { "gD", vim.lsp.buf.declaration, desc = "Goto Declaration" },
+            { "K", function() return vim.lsp.buf.hover() end, desc = "Hover" },
+            { "gK", function() return vim.lsp.buf.signature_help() end, desc = "Signature Help", has = "signatureHelp" },
+            { "<c-k>", function() return vim.lsp.buf.signature_help() end, mode = "i", desc = "Signature Help", has = "signatureHelp" },
+            { "<leader>ca", vim.lsp.buf.code_action, desc = "Code Action", mode = { "n", "v" }, has = "codeAction" },
+            { "<leader>cc", vim.lsp.codelens.run, desc = "Run Codelens", mode = { "n", "v" }, has = "codeLens" },
+            { "<leader>cC", vim.lsp.codelens.refresh, desc = "Refresh & Display Codelens", mode = { "n" }, has = "codeLens" },
+            { "<leader>cr", vim.lsp.buf.rename, desc = "Rename", has = "rename" },
+          },
+        },
+      },
     },
-    config = function(_, opts)
-      local servers = opts.servers or {}
-      local has_blink, blink = pcall(require, 'blink.cmp')
-      local capabilities = vim.tbl_deep_extend(
-        'force',
-        {},
-        vim.lsp.protocol.make_client_capabilities() or {},
-        has_blink and blink.get_lsp_capabilities() or {},
-        opts.capabilities or {}
-      )
+    config = vim.schedule_wrap(function(_, opts)
+      for server, server_opts in pairs(opts.servers) do
+        if server_opts.keys then
+          require('plugins.lsp.keymaps').set(server, server_opts.keys)
+        end
+      end
 
-      for server, config in pairs(servers) do
-        local server_opts = vim.tbl_deep_extend('force', { capabilities = vim.deepcopy(capabilities) }, config or {})
-        if server_opts.enabled == false then
+      if opts.servers['*'] then
+        vim.lsp.config('*', opts.servers['*'])
+      end
+
+      local function configure(server)
+        if server == '*' then
           return
         end
 
-        if opts.setup[server] then
-          if opts.setup[server](server, server_opts) then
-            return
-          end
+        local sopts = opts.servers[server]
+        if sopts.enabled == false then
+          return
         end
-        require('lspconfig')[server].setup(server_opts)
+
+        vim.lsp.config(server, sopts)
+        vim.lsp.enable(server)
+      end
+
+      for server, _ in pairs(opts.servers) do
+        configure(server)
       end
 
       vim.api.nvim_create_autocmd('LspAttach', {
-        ---@param args vim.api.keyset.create_autocmd.callback_args
         callback = function(args)
-          local buffer = args.buf ---@type number
-          local client = vim.lsp.get_client_by_id(args.data.client_id) ---@type vim.lsp.Client?
+          local buffer = args.buf
+          local client = vim.lsp.get_client_by_id(args.data.client_id)
           if not client then
             return
           end
@@ -50,19 +80,11 @@ return {
 
           require('plugins.lsp.keymaps').on_attach(client, buffer)
 
-          if client.supports_method('textDocument/inlayHint') then
+          if client:supports_method('textDocument/inlayHint') then
             vim.lsp.inlay_hint.enable(true, { bufnr = buffer })
-          end
-
-          if client.supports_method('textDocument/codeLens') then
-            vim.lsp.codelens.refresh()
-            vim.api.nvim_create_autocmd({ 'BufEnter', 'InsertLeave' }, {
-              buffer = buffer,
-              callback = vim.lsp.codelens.refresh,
-            })
           end
         end,
       })
-    end,
+    end),
   },
 }
